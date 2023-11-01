@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1536352492 source:/home/karl/Workspace/cs180/0904_SugarTantrums/sugar_tantrums.cpp
+	<iostream>
+	<iomanip>
+

@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1540838709 source:/home/karl/Workspace/cs180/1023_JavaJoesRedux/java_joes_redux.cpp
+	<fstream>
+	<iomanip>
+	<iostream>
+	<string>
+

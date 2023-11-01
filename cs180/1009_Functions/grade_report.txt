@@ -1,0 +1,5 @@
+Alexander Graham Bell      87.67  B
+Carl Linnaeus              66.50  D
+Mary Anning               100.00  A
+Ada Lovelace               79.33  C
+The highest average was Mary Anning with an average of 100.00

@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1541183480 source:/home/karl/Workspace/cs180/1030_SearchAndSort/search_and_sort.cpp
+	<vector>
+	<iostream>
+	<fstream>
+

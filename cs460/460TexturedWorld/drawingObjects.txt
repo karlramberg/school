@@ -1,0 +1,19 @@
+#GSpriteKey						// DINO 
+-250,-50,0                      // location
+dino		                    // texture
+
+#GFlag							// FLAG	
+192,102,0			                // location
+/World/flag.png                 // texture
+			
+#GJet							// JET 	
+-300,120,0	                    // location
+/World/jet.png                  // texture
+			
+#GCloud							// CLOUD
+300,100,0                       // location
+/World/cloud.png                // texture
+			
+#GTree							// TREE
+132,-115,0                      // location
+/World/Forest/Object/Tree_2.png // texture

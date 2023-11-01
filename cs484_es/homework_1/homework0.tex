@@ -1,0 +1,171 @@
+\documentclass[11pt]{article}
+\usepackage[paper=letterpaper, left=1in, right=1in, top=1in, bottom=1in]
+           {geometry}
+\usepackage[parfill]{parskip}
+\usepackage{amsmath}
+\usepackage[siunitx]{circuitikz}
+
+\newcommand{\problem}[1]{\textbf{Problem #1 ---} }
+\newcommand{\answer}{\textit{Answer: } }
+\newcommand{\amp}{\ampere}
+
+\begin{document}
+\thispagestyle{empty}
+
+\begin{center}
+{\large Embedded Systems}\\
+Homework Chapter 0
+\end{center}
+
+\begin{flushright}
+Karl Ramberg
+\end{flushright}
+
+\problem{0.1} If the probes of a multimeter are placed on either side of a
+  1.2\si{\kilo\ohm} resistor and measure a voltage of 9\si{\volt}, how
+  much current flows through the resistor?
+
+\answer Ohm's Law says that $V = IR$.  Rearranging, we have $I = \frac{V}{R}$.
+Using the given values we have:
+\begin{align*}
+I &= \frac{V}{R}\\
+  &= \frac{9\si{\volt}}{1200\si{\ohm}}\\
+  &= 0.0075\si{\ampere}\\
+  &= 7.5\si{\milli\ampere}
+\end{align*}
+
+\problem{0.2} If a resistor $R$ bridges the 5\si{\volt} and ground
+rails of a power supply, what is the smallest E12 value it could have
+if we want no more than 1\si{\milli\ampere} of current to flow through
+the resistor?
+
+\answer Ohm's law says that $V = IR$. Rearranging, we have $R = \frac{V}{I}$.
+Using the given values we have:
+\begin{align*}
+R &= \frac{V}{I}\\
+  &= \frac{5\si{\volt}}{1\si{\milli\ampere}}\\
+  &= \frac{5\si{\volt}}{0.001\si{\ampere}}\\
+  &= 5,000\si{\ohm}\\
+  &= 5\si{\kilo\ohm}
+\end{align*}
+This means that the smallest resistance we must have is 5\si{\kilo\ohm}.
+The smallest E12 series resistor that guarantees 5\si{\kilo\ohm} is a 5.6\si{\kilo\ohm} resistor. 
+The 5.6\si{\kilo\ohm} resistor in an E12 series guarantees the resistance will between 5,040\si{\ohm} and 6,160\si{\ohm}, both ends being 10\% less or more than 5.6\si{\kilo\ohm}. 
+
+\problem{0.3} If a resistor $R$ bridges the 5\si{\volt} and ground rails
+of a power supply, what is the largest E12 value it could have if we
+want no less than 20\si{\micro\ampere} of current to flow through the
+resistor?
+
+\answer Ohm's law says that $V = IR$. Rearranging, we have $R = \frac{V}{I}$.
+Using the given values we have:
+\begin{align*}
+R &= \frac{V}{I}\\
+  &= \frac{5\si{\volt}}{20\si{\micro\ampere}}\\
+  &= \frac{5\si{\volt}}{0.00002\si{\ampere}}\\
+  &= 250,000\si{\ohm}\\
+  &= 250\si{\kilo\ohm}
+\end{align*}
+This means that the largest resistance we can have is $250\si{\kilo\ohm}$.
+The largest E12 series resistor to guarantee no more than 250\si{\kilo\ohm} is a 220\si{\kilo\ohm} resistor.
+This kind of resistor will guarantee the resistance doesn't go above 242\si{\kilo\ohm}, 10\% more than the base value.
+
+\problem{0.4} How much power is consumed by the resistor in
+Exercise~0.2?
+
+\answer The Power law says that $P = IV$.
+Using the given values we have:
+\begin{align*}
+P &= I\times V\\
+  &= 1\si{\milli\ampere}\times 5\si{\volt}\\
+  &= 0.001\si{\ampere}\times 5\si{\volt}\\
+  &= 0.005\si{\watt}\\
+  &= 5\si{\milli\watt}
+\end{align*}
+
+\problem{0.5} How much power is consumed by the resistor in
+Exercise~0.3?
+
+\answer The Power law says that $P = IV$.
+Using the given values we have:
+\begin{align*}
+P &= I\times V\\
+  &= 20\si{\micro\ampere}\times 5\si{\volt}\\
+  &= 0.00002\si{\ampere}\times 5\si{\volt}\\
+  &= 0.0001\si{\watt}\\
+  &= 1\si{\milli\watt}
+\end{align*}
+
+\problem{0.6} A common USB power supply can output 5\si{\volt} with a
+current of 2.1\si{\ampere}.  If we connect a 10\si{\ohm} resistor
+across a USB power supply, how much current will it
+draw?
+
+\answer Ohm's law says that $V = IR$. Rearranging, we have $I = \frac{V}{R}$.
+Using the given values we have:
+\begin{align*}
+I &= \frac{V}{R}\\\
+  &= \frac{5\si{\volt}}{10\si{\ohm}}\\
+  &= 0.5\si{\ampere}
+\end{align*}
+
+\problem{0.7} How much power is consumed by the resistor in
+Exercise~0.6
+
+\answer The Power law says that $P = IV$.
+Using the given values we have:
+\begin{align*}
+P &= I\times V\\
+  &= 0.5\si{\ampere}\times 5\si{\volt}\\
+  &= 2.5\si{\watt}
+\end{align*}
+
+\problem{0.8} The rectifying diode in a power supply has a constant
+voltage drop of 0.7\si{\volt}.  If 15\si{\ampere} of current flows
+through the diode, how much power is consumed by the diode?
+
+\answer To find the power drawn by the diode, we can use the power law.
+The power law states that $P = IV$.
+Using the given values we have:
+\begin{align*}
+P &= I\times V\\
+  &= 15\si{\ampere}\times 0.7\si{\volt}\\
+  &= 10.5\si{\watt}
+\end{align*}
+
+\problem{0.9} The bands on a resistor are green-blue-yellow-gold.
+What is the minimum and maximum resistance the resistor may have?
+
+\answer Green, blue, yellow would correspond to the numbers $5$, $6$, and $4$ respectively.
+The gold band indicates a 5\% tolerance. 
+This means the resistor's base value is 560\si{\kilo\ohm}, 
+the minimum resistance is $560\si{\kilo\ohm}\times 0.95 = 532\si{\kilo\ohm}$ 
+and the maximum resistance is $560\si{\kilo\ohm}\times 1.05 = 588\si{\kilo\ohm}$.
+
+\problem{0.10} The bands on a resistor are gold-brown-red-gray.  What is
+the minimum and maximum resistance the resistor may have?
+
+\answer This ordering is flipped because the gold band should be read last on the right;
+gray-red-brown-gold would be easier to understand.
+Gray, red, brown corresponds to the numbers $8$, $2$, and $1$ respectively.
+Gold means the resistor has a 5\% tolerance.
+The nominal value would be 820\si{\ohm},
+the minimum resistance is $820\si{\ohm}\times 0.95 = 779\si{\ohm}$,
+and the maximum resistance is $820\si{\ohm}\times 1.05 = 861\si{\ohm}$.
+
+\problem{0.11} A surface mount resistor is marked 752.  What is the
+nominal value of the resistor?
+
+\answer The nominal value of this surface mount resistor would be 7.5\si{\kilo\ohm}.
+
+\problem{0.12} A surface mount resistor is marked 051.  What is the
+nominal value of the resistor?
+
+\answer The nominal value of this surface mount resistor would be 50\si{\ohm}.
+
+\problem{0.13} A surface mount resistor is marked 2201.  What is the
+nominal value of the resistor?
+
+\answer The nominal value of this surface mount resistor would be 2.2\si{\kilo\ohm}.
+
+\end{document}

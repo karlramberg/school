@@ -1,0 +1,7 @@
+My encryption method is fairly simple. 
+When starting to encrypt is gets a timestamp (milliseconds since Jan 1, 1970).
+It adds that number to the beginning of the encrypted file.
+Each character gets incremented by that timestamp, this makes each encryption different from the next.
+When decrypting the number is read off the encrypted file first.
+Each character is then decremented by the timestamp.
+

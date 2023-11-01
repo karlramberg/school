@@ -1,0 +1,20 @@
+When using Hibernate to control a SQL database with Java, you have to be careful
+for date formatting to be correct. 
+
+SQL has the "datetime" type.
+Java has the "java.util.Date" class.
+
+The @Temporal annotation is Hibernate's way of marking a field as similar to an SQL
+datetime. Additionally you can use TemporalType.DATE to keep only the date (year, month, day) and 
+not the time part (hours, minutes, seconds). We do that with the Employee class 
+because it doesn't make sense to keep track of the exact time an employee 
+started, only the calendar day.
+
+Java also has a convenient class called SimpleDateFormat. It is used to convert
+strings to a Date object. It is much more convenient for users and programmers
+to create dates this way.
+
+With all of these tools together we can create a date with a string such as
+"2021-11-03". SimpleDateFormat will convert that to a java.util.Date object.
+Hibernate will take that instance data and convert it to the proper SQL type
+because we marked the field with @Temporal(TemporalType.DATE).

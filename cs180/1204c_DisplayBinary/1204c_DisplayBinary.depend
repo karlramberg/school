@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1543956073 source:/home/karl/Desktop/cs180/1204c_DisplayBinary/display_binary_file.cpp
+	<fstream>
+	<iomanip>
+	<iostream>
+	<vector>
+

@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1541883984 source:/home/karl/Workspace/cs180/1106_DynamicArray/dynamic_array.cpp
+	<iostream>
+	<iomanip>
+

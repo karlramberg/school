@@ -1,0 +1,4 @@
+1 Name cannot be empty
+2 ID cannot be negative
+3 Sales cannot be negative
+4 Year cannot be negative or past 2019

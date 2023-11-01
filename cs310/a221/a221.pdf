@@ -1,0 +1,111 @@
+\documentclass[11pt]{article}
+\usepackage[paper=letterpaper, left=1in, right=1in, top=1in, bottom=1in]
+           {geometry}
+\usepackage[parfill]{parskip}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{fancyvrb}
+\usepackage{upquote}
+\usepackage{xfrac}
+
+\newcommand{\problem}[1]{\textbf{Problem #1 ---} }
+\newcommand{\answer}{\textit{Answer: } }
+
+\begin{document}
+\thispagestyle{empty}
+
+\begin{center}
+{\large CS 310}\\
+Assignment 221
+\end{center}
+
+\begin{flushright}
+Karl Ramberg
+\end{flushright}
+
+To analyze a priority queue implemented using an array-based heap, we must 
+look at the two most complex functions \texttt{push()} and \texttt{pop()}.
+
+\texttt{push()} and \texttt{pop()} themselves have a constant complexity. My
+implementations of \texttt{push()} has 1 operation and \texttt{push()} has 4.
+However these methods are useless if they don't call \texttt{bubble\_up()} and
+\texttt{percolate\_down()} respectively in order to sort the new or removed
+elements. These helper functions are what add complexity.
+
+My implementation of \texttt{push()} doesn't use recursion and only has
+one main while loop. Each run of the while loop switches the new element with
+it's parent. This can be done a maximum number of times equal to the number of
+levels of the heap ($\lg{n}$). This is our most complex part. There are 9 
+total operations every time the loop runs and 8 before or after. These do no 
+change the complexity. $\lg{n}$ is the worst case so...
+\[
+T(n) \in O(\lg{n})
+\]
+The best case is that no bubbling needs to take place and the while loop runs
+no times. This would be a constant time of 8 operations.
+\[
+T(n) \in \Omega(1)
+\]
+
+The analysis for \texttt{pop()} is very similar to \texttt{push()}. It is also
+has one main while loop that will run a maximum of $\lg{n}$ times, the number
+of levels in the heap. Inside the while loop there are several if-structures
+so the exact number operations vary, but it is always a constant not dependent
+on input size. This mean that our most complex part is the while loop, so we
+can conclude
+\[
+T(n) \in O(\lg{n})
+\]
+Our best case again occurs when no percolating needs to be done and a constant
+number of operations is performed.
+\[
+T(n) \in \Omega(1)
+\]
+
+This is the analysis for once run of \texttt{push()} or \texttt{pop()},
+however these methods are never run only once. Each one is run $n$ times
+assuming that everything in the priority queue is dealt with. This means we
+should multiply $n$ through our original complexities. So are final complexity
+for both is...
+\begin{align*}
+T(n) \in O(n\lg{n}) \\
+T(n) \in \Omega(n)
+\end{align*}
+
+To prove this I built and tore down priority queues of many sizes using the
+shell command
+
+\begin{Verbatim}
+for n in `seq 1 10 10000`;
+do 
+  ./run_pq $n;
+done 1> push_and_pop.dat 2> /dev/null
+\end{Verbatim}
+
+and plotted the points with gnuplot. The standard function $n\lg{n}$ was added
+and scaled by constants to illustrate where my implementation's complexities
+fall.
+
+\begin{center}
+  \includegraphics[width=0.75\textwidth]{push_and_pop.png}
+\end{center}
+
+This shows the analysis for \texttt{push()} and \texttt{pop()} seperatly, but
+these functions are never run seperatly so we should look at there operations
+together as well. Run with the same shell command, here is the gnuplot graph
+with extra scaled standard functions for illustration.
+\begin{center}
+  \includegraphics[width=0.75\textwidth]{push_and_pop_combined.png}
+\end{center}
+
+This analysis of a priority queue confirms what we decided in class, that
+\begin{align*}
+T(n) \in O(n\lg{n}) \\
+T(n) \in \Omega(n)
+\end{align*}
+\end{document}
+
+
+
+
+%%  LocalWords:  cn Yada yada indx cerr cpp dat

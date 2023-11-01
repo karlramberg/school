@@ -1,0 +1,115 @@
+// Proper header documentation here
+
+#include <fstream>
+#include <iomanip>
+#include <iostream>
+#include <string>
+using namespace std;
+
+unsigned find_position (const string customer_ids[],
+                        unsigned space_used, string query);
+
+void update_purchase_info (const string customer_ids[],
+                           double customer_purchases[],
+                           unsigned space_used,
+                           string customer_id,
+                           double purchase_amount);
+
+void report_sales (const double customer_purchases[],
+                   const string customer_names[],
+                   const string customer_ids[],
+                   unsigned space_used);
+
+string get_top_customer_id (const double customer_purchases[],
+                            const string customer_ids[],
+                            unsigned space_used);
+
+int main()
+{
+  const unsigned MAX_CUSTOMERS = 100;
+
+  string customer_names [MAX_CUSTOMERS];
+  string customer_ids [MAX_CUSTOMERS];
+  double customer_purchases [MAX_CUSTOMERS];
+
+  ifstream customer_info;
+  customer_info.open("customer_info.txt");
+  string customer_id;
+  unsigned customer_count = 0;
+
+  while (customer_info >> customer_id)
+  {
+    customer_info.ignore(1); // the space between the id and the name
+
+    string customer_name;
+    getline(customer_info, customer_name);
+
+    customer_ids[customer_count] = customer_id;
+    customer_names[customer_count] = customer_name;
+    customer_purchases[customer_count] = 0.0;
+    customer_count++;
+  }
+  customer_info.close();
+
+  ifstream transaction_info;
+  transaction_info.open("september_transactions.txt");
+
+  while (transaction_info >> customer_id)
+  {
+    double transaction_amount;
+    transaction_info >> transaction_amount;
+
+    update_purchase_info(customer_ids, customer_purchases, customer_count,
+                         customer_id, transaction_amount);
+  }
+
+  report_sales(customer_purchases, customer_names,
+               customer_ids, customer_count);
+
+  string top_customer_id =
+    get_top_customer_id (customer_purchases, customer_ids, customer_count);
+
+  unsigned top_customer_index =
+    find_position(customer_ids, customer_count, top_customer_id);
+
+  cout << "The top seller was " << customer_names[top_customer_index] <<
+    " with purchases of " << customer_purchases[top_customer_index] << endl;
+
+  return 0;
+}
+
+unsigned find_position (const string customer_ids[],
+                        unsigned space_used,
+                        string query)
+{
+  for(unsigned index = 0; index < space_used; index++)
+  {
+    if(customer_ids[index] == query)
+    {
+      return index;
+    }
+  }
+}
+
+void update_purchase_info (const string customer_ids[],
+                           double customer_purchases[],
+                           unsigned space_used,
+                           string customer_id,
+                           double purchase_amount)
+{
+
+}
+
+void report_sales (const double customer_purchases[],
+                   const string customer_names[],
+                   const string customer_ids[],
+                   unsigned space_used)
+{
+
+}
+string get_top_customer_id (const double customer_purchases[],
+                            const string customer_ids[],
+                            unsigned space_used)
+{
+  return "";
+}

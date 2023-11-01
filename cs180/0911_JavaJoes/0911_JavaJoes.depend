@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1536849762 source:/home/karl/Workspace/cs180/0911_JavaJoes/java_joes.cpp
+	<iostream>
+	<iomanip>
+	<cstdlib>
+

@@ -1,0 +1,17 @@
+1. Component scanning is used to help Spring know where your beans are and which
+of your classes should be beans. When component scanning is enabled, you should
+use "@Component" to mark your beans. In Spring, a bean's life-cycle is managed
+by the container itself. The bean is created after the container is created and
+destroyed when the container is closed. We can run custom bean code in init()
+and destroy() functions to take advantage of this cycle.
+
+2. Qualifiers (@Qualifier) are used to specify what type of a specific bean you
+want to make. You can still write your code using polymorphism, but in order for
+Spring to properly make a bean it needs to know the type you want to make if 
+there are more than one of the generic type.
+
+2b. Java config is different from component scanning or XML configs because it
+is done with Java code in a Java class. This is very useful because it can be
+right alongside your other code and all the bean code can be in one place. The
+Java config creates beans using simple functions which return the type of the 
+bean. @Bean is used to denote one of these functions.

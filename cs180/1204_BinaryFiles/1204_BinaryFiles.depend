@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1544124221 source:/home/karl/Desktop/cs180/1204_BinaryFiles/framework.cpp
+	<fstream>
+	<iomanip>
+	<iostream>
+	<vector>
+

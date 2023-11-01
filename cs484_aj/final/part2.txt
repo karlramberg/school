@@ -1,0 +1,21 @@
+Karl Ramberg
+CS 484 Advanced Java
+Final Exam Part 2
+
+For this final exam I used Maven to set dependencies such as MVC and Hibernate.
+This configuration was copied from my final project. The structure of the code
+is similar to my final project as well. I made com.entity to hold Student and
+StudentDetail entity classes. I made com.hibernate to hold Hibernate code such
+as the DAO and Transactional service. Finally, I made com.mvc to hold the
+StudentController class for managing page views and forms. The controller class
+will be called by the jsp pages. The controller will call service functions
+which then calls DAO functions. The DAO functions directly use hibernate
+functions to request or update data from the student database.
+
+My two MVC view pages are home.jsp and student-form.jsp. home.jsp does a simple
+database request for every student. The student's details are grab alongside 
+them because the two entities were mapped using EAGER loading. The student and 
+their details are listed in a nice table on the home page. student-form.jsp
+handles both adding a new student and updating an existing one. When you click 
+"Add New Student" is shows a blank form to fill in. When you click "Edit" on a
+table row is populates the form so you can edit it.

@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1539056938 source:/home/karl/Workspace/cs180/1002_FileInput/file_input.cpp
+	<iostream>
+	<fstream>
+	<iomanip>
+

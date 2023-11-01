@@ -1,0 +1,12 @@
+this is
+a file with more
+than ten lines,
+so 
+i
+should keep
+on typing
+until it reaches
+the required length
+this is line 10
+one more for good measure
+this one and the last shouldn't be printed

@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1542141889 source:/home/karl/work/cs180/1113_CppStrings/cpp_strings.cpp
+	<fstream>
+	<iomanip>
+	<iostream>
+	<string>
+	<vector>
+

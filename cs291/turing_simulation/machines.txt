@@ -1,0 +1,483 @@
+1 --------------------------------------------------------------------------------------------------
+/* $ donotes the start of the tape */
+
+start(s1).              /* starting state  */
+
+t(s1,$,s2,$,r).		/* move past start symbol */
+
+t(s2,a,s3,x,l).		/* move right looking for a */
+t(s2,x,s2,x,r).
+t(s2,b,s2,b,r).
+t(s2,' ',s7,' ',l).
+
+t(s3,a,s3,a,l).		/* move back to start when a found */
+t(s3,b,s3,b,l).
+t(s3,x,s3,x,l).
+t(s3,$,s4,$,r).
+
+t(s4,b,s5,x,r).		/* search for two b's */
+t(s5,b,s6,x,l).
+t(s5,x,s6,x,r).
+t(s4,a,s4,a,r).
+t(s4,x,s4,x,r).
+
+t(s6,a,s6,a,l).		/* move back to start when two are found, find another a */
+t(s6,b,s6,b,l).
+t(s6,x,s6,x,l).
+t(s6,$,s2,$,r).
+
+accepting(s7).
+
+Example 1
+?- top([$,a,a,b,b,b,b]).
+[]s1[$,a,a,b,b,b,b] $ right 
+[$]s2[a,a,b,b,b,b] x left 
+[]s3[$,x,a,b,b,b,b] $ right 
+[$]s4[x,a,b,b,b,b] x right 
+[$,x]s4[a,b,b,b,b] a right 
+[$,x,a]s4[b,b,b,b] x right 
+[$,x,a,x]s5[b,b,b] x left 
+[$,x,a]s6[x,x,b,b] x left 
+[$,x]s6[a,x,x,b,b] a left 
+[$]s6[x,a,x,x,b,b] x left 
+[]s6[$,x,a,x,x,b,b] $ right 
+[$]s2[x,a,x,x,b,b] x right 
+[$,x]s2[a,x,x,b,b] x left 
+[$]s3[x,x,x,x,b,b] x left 
+[]s3[$,x,x,x,x,b,b] $ right 
+[$]s4[x,x,x,x,b,b] x right 
+[$,x]s4[x,x,x,b,b] x right 
+[$,x,x]s4[x,x,b,b] x right 
+[$,x,x,x]s4[x,b,b] x right 
+[$,x,x,x,x]s4[b,b] x right 
+[$,x,x,x,x,x]s5[b] x left 
+[$,x,x,x,x]s6[x,x] x left 
+[$,x,x,x]s6[x,x,x] x left 
+[$,x,x]s6[x,x,x,x] x left 
+[$,x]s6[x,x,x,x,x] x left 
+[$]s6[x,x,x,x,x,x] x left 
+[]s6[$,x,x,x,x,x,x] $ right 
+[$]s2[x,x,x,x,x,x] x right 
+[$,x]s2[x,x,x,x,x] x right 
+[$,x,x]s2[x,x,x,x] x right 
+[$,x,x,x]s2[x,x,x] x right 
+[$,x,x,x,x]s2[x,x] x right 
+[$,x,x,x,x,x]s2[x] x right 
+[$,x,x,x,x,x,x]s2[ ]   left 
+[$,x,x,x,x,x]s7[x, ] x left 
+[$,x,x,x,x]s7[x,x, ] x left 
+[$,x,x,x]s7[x,x,x, ] x left 
+[$,x,x]s7[x,x,x,x, ] x left 
+[$,x]s7[x,x,x,x,x, ] x left 
+[$]s7[x,x,x,x,x,x, ] x left 
+[]s7[$,x,x,x,x,x,x, ] $ right 
+[$]s8[x,x,x,x,x,x, ] accept 
+
+Example 2
+?- top([$,a,a,a,a,b,b]).
+[]s1[$,a,a,a,a,b,b] $ right 
+[$]s2[a,a,a,a,b,b] x left 
+[]s3[$,x,a,a,a,b,b] $ right 
+[$]s4[x,a,a,a,b,b] x right 
+[$,x]s4[a,a,a,b,b] a right 
+[$,x,a]s4[a,a,b,b] a right 
+[$,x,a,a]s4[a,b,b] a right 
+[$,x,a,a,a]s4[b,b] x right 
+[$,x,a,a,a,x]s5[b] x left 
+[$,x,a,a,a]s6[x,x] x left 
+[$,x,a,a]s6[a,x,x] a left 
+[$,x,a]s6[a,a,x,x] a left 
+[$,x]s6[a,a,a,x,x] a left 
+[$]s6[x,a,a,a,x,x] x left 
+[]s6[$,x,a,a,a,x,x] $ right 
+[$]s2[x,a,a,a,x,x] x right 
+[$,x]s2[a,a,a,x,x] x left 
+[$]s3[x,x,a,a,x,x] x left 
+[]s3[$,x,x,a,a,x,x] $ right 
+[$]s4[x,x,a,a,x,x] x right 
+[$,x]s4[x,a,a,x,x] x right 
+[$,x,x]s4[a,a,x,x] a right 
+[$,x,x,a]s4[a,x,x] a right 
+[$,x,x,a,a]s4[x,x] x right 
+[$,x,x,a,a,x]s4[x] x right 
+[$,x,x,a,a,x,x]s4[ ] reject 
+
+2 --------------------------------------------------------------------------------------------------
+/* $ donotes the start of the tape */
+
+start(s1). /* starting state  */
+
+t(s1,$,s2,$,r). /* on starting state, move right */
+t(s2,a,s2,a,r).		
+t(s2,b,s2,b,r).
+
+t(s2,' ',s3,#,l). /* when a blank is found, write the delimeter and move back left*/
+
+t(s3,a,s3,a,l).	/* move back left to the first character */
+t(s3,b,s3,b,l).		
+t(s3,$,s4,$,r).
+
+t(s4,a,s5,x,r).	/* replace a with x, move left to write a at end */
+t(s5,a,s5,a,r).
+t(s5,b,s5,b,r).
+t(s5,#,s5,#,r).
+t(s5,' ',s7,a,l).
+
+t(s4,b,s6,y,r). /* replace b with y, move left to write b at end */
+t(s6,a,s6,a,r).
+t(s6,b,s6,b,r).
+t(s6,#,s6,#,r).
+t(s6,' ',s7,b,l).
+
+t(s7,a,s7,a,l). /* character has just been written, move back to first x or y */
+t(s7,b,s7,b,l).
+t(s7,#,s7,#,l).
+t(s7,x,s4,x,r).
+t(s7,y,s4,y,r).
+
+t(s4,#,s8,#,l). /* hit #, string is fully copied to the left */
+
+t(s8,x,s8,a,l).	/* move back left to the first character replacing x's with a's and y's with b's */
+t(s8,y,s8,b,l).		
+t(s8,$,s9,$,r).
+
+accepting(s9).
+
+Example 1
+?- top([$,a,a,b]).
+[]s1[$,a,a,b] $ right 
+[$]s2[a,a,b] a right 
+[$,a]s2[a,b] a right 
+[$,a,a]s2[b] b right 
+[$,a,a,b]s2[ ] # left 
+[$,a,a]s3[b,#] b left 
+[$,a]s3[a,b,#] a left 
+[$]s3[a,a,b,#] a left 
+[]s3[$,a,a,b,#] $ right 
+[$]s4[a,a,b,#] x right 
+[$,x]s5[a,b,#] a right 
+[$,x,a]s5[b,#] b right 
+[$,x,a,b]s5[#] # right 
+[$,x,a,b,#]s5[ ] a left 
+[$,x,a,b]s7[#,a] # left 
+[$,x,a]s7[b,#,a] b left 
+[$,x]s7[a,b,#,a] a left 
+[$]s7[x,a,b,#,a] x right 
+[$,x]s4[a,b,#,a] x right 
+[$,x,x]s5[b,#,a] b right 
+[$,x,x,b]s5[#,a] # right 
+[$,x,x,b,#]s5[a] a right 
+[$,x,x,b,#,a]s5[ ] a left 
+[$,x,x,b,#]s7[a,a] a left 
+[$,x,x,b]s7[#,a,a] # left 
+[$,x,x]s7[b,#,a,a] b left 
+[$,x]s7[x,b,#,a,a] x right 
+[$,x,x]s4[b,#,a,a] y right 
+[$,x,x,y]s6[#,a,a] # right 
+[$,x,x,y,#]s6[a,a] a right 
+[$,x,x,y,#,a]s6[a] a right 
+[$,x,x,y,#,a,a]s6[ ] b left 
+[$,x,x,y,#,a]s7[a,b] a left 
+[$,x,x,y,#]s7[a,a,b] a left 
+[$,x,x,y]s7[#,a,a,b] # left 
+[$,x,x]s7[y,#,a,a,b] y right 
+[$,x,x,y]s4[#,a,a,b] # left 
+[$,x,x]s8[y,#,a,a,b] b left 
+[$,x]s8[x,b,#,a,a,b] a left 
+[$]s8[x,a,b,#,a,a,b] a left 
+[]s8[$,a,a,b,#,a,a,b] $ right 
+[$]s9[a,a,b,#,a,a,b] accept 
+
+Example 2
+?- top([$,b,a,b,b]).
+[]s1[$,b,a,b,b] $ right 
+[$]s2[b,a,b,b] b right 
+[$,b]s2[a,b,b] a right 
+[$,b,a]s2[b,b] b right 
+[$,b,a,b]s2[b] b right 
+[$,b,a,b,b]s2[ ] # left 
+[$,b,a,b]s3[b,#] b left 
+[$,b,a]s3[b,b,#] b left 
+[$,b]s3[a,b,b,#] a left 
+[$]s3[b,a,b,b,#] b left 
+[]s3[$,b,a,b,b,#] $ right 
+[$]s4[b,a,b,b,#] y right 
+[$,y]s6[a,b,b,#] a right 
+[$,y,a]s6[b,b,#] b right 
+[$,y,a,b]s6[b,#] b right 
+[$,y,a,b,b]s6[#] # right 
+[$,y,a,b,b,#]s6[ ] b left 
+[$,y,a,b,b]s7[#,b] # left 
+[$,y,a,b]s7[b,#,b] b left 
+[$,y,a]s7[b,b,#,b] b left 
+[$,y]s7[a,b,b,#,b] a left 
+[$]s7[y,a,b,b,#,b] y right 
+[$,y]s4[a,b,b,#,b] x right 
+[$,y,x]s5[b,b,#,b] b right 
+[$,y,x,b]s5[b,#,b] b right 
+[$,y,x,b,b]s5[#,b] # right 
+[$,y,x,b,b,#]s5[b] b right 
+[$,y,x,b,b,#,b]s5[ ] a left 
+[$,y,x,b,b,#]s7[b,a] b left 
+[$,y,x,b,b]s7[#,b,a] # left 
+[$,y,x,b]s7[b,#,b,a] b left 
+[$,y,x]s7[b,b,#,b,a] b left 
+[$,y]s7[x,b,b,#,b,a] x right 
+[$,y,x]s4[b,b,#,b,a] y right 
+[$,y,x,y]s6[b,#,b,a] b right 
+[$,y,x,y,b]s6[#,b,a] # right 
+[$,y,x,y,b,#]s6[b,a] b right 
+[$,y,x,y,b,#,b]s6[a] a right 
+[$,y,x,y,b,#,b,a]s6[ ] b left 
+[$,y,x,y,b,#,b]s7[a,b] a left 
+[$,y,x,y,b,#]s7[b,a,b] b left 
+[$,y,x,y,b]s7[#,b,a,b] # left 
+[$,y,x,y]s7[b,#,b,a,b] b left 
+[$,y,x]s7[y,b,#,b,a,b] y right 
+[$,y,x,y]s4[b,#,b,a,b] y right 
+[$,y,x,y,y]s6[#,b,a,b] # right 
+[$,y,x,y,y,#]s6[b,a,b] b right 
+[$,y,x,y,y,#,b]s6[a,b] a right 
+[$,y,x,y,y,#,b,a]s6[b] b right 
+[$,y,x,y,y,#,b,a,b]s6[ ] b left 
+[$,y,x,y,y,#,b,a]s7[b,b] b left 
+[$,y,x,y,y,#,b]s7[a,b,b] a left 
+[$,y,x,y,y,#]s7[b,a,b,b] b left 
+[$,y,x,y,y]s7[#,b,a,b,b] # left 
+[$,y,x,y]s7[y,#,b,a,b,b] y right 
+[$,y,x,y,y]s4[#,b,a,b,b] # left 
+[$,y,x,y]s8[y,#,b,a,b,b] b left 
+[$,y,x]s8[y,b,#,b,a,b,b] b left 
+[$,y]s8[x,b,b,#,b,a,b,b] a left 
+[$]s8[y,a,b,b,#,b,a,b,b] b left 
+[]s8[$,b,a,b,b,#,b,a,b,b] $ right 
+[$]s9[b,a,b,b,#,b,a,b,b] accept 
+
+3 --------------------------------------------------------------------------------------------------
+/* $ donotes the start of the tape */
+/* takes a binary number is reverse order */
+
+start(s1). /* starting state  */
+t(s1,$,s2,$,r).
+
+t(s2,'0',s3,'1',l). /* if the first character is a 0, flip to 1 and accept */
+t(s2,'1',s4,'0',r). /* if the first character is a 1, flip to 0 and start moving right */
+
+t(s4,'1',s4,'0',r). /* if the character is a 1, flip to a 0 */
+t(s4,'0',s3,'1',r). /* if the character is a 0, flip to a 1 and accept */
+t(s4,' ',s3,'1',l). /* add a 1 if your run off the end and accept */
+
+accepting(s3).
+
+Example 1
+?- top(['$','0','1','1']).
+[]s1[$,0,1,1] $ right 
+[$]s2[0,1,1] 1 left 
+[]s3[$,1,1,1] accept 
+
+Example 2
+?- top(['$','1','1','1']).
+[]s1[$,1,1,1] $ right 
+[$]s2[1,1,1] 0 right 
+[$,0]s4[1,1] 0 right 
+[$,0,0]s4[1] 0 right 
+[$,0,0,0]s4[ ] 1 left 
+[$,0,0]s3[0,1] accept 
+
+4 --------------------------------------------------------------------------------------------------
+/* string must start and end with $ */
+start(s1).              /* starting state  */
+t(s1,$,s2,$,r).
+
+t(s2,a,s3,a,r).		/* start right looking for the first character to switch */
+t(s2,b,s4,b,r).
+
+t(s3,a,s3,a,r).		/* a was found, move to the end */
+t(s3,b,s3,b,r).
+t(s3,x,s3,x,r).
+t(s3,y,s3,y,r).
+t(s3,$,s5,$,l).
+
+t(s4,a,s4,a,r).		/* b was found, move to the end */
+t(s4,b,s4,b,r).
+t(s4,x,s4,x,r).
+t(s4,y,s4,y,r).
+t(s4,$,s6,$,l).
+
+t(s5,a,s7,x,l).		/* move back from the end and write x in first available spot */
+t(s5,b,s8,x,l).
+t(s5,x,s5,x,l).
+t(s5,y,s5,y,l).
+t(s5,$,s11,$,r).
+
+t(s6,a,s7,y,l).		/* move back from the end and write y in first available spot */
+t(s6,b,s8,y,l).
+t(s6,x,s6,x,l).
+t(s6,y,s6,y,l).
+t(s6,$,s11,$,r).
+
+t(s7,a,s7,a,l).		/* move back to the start, carrying an x */
+t(s7,b,s7,b,l).
+t(s7,x,s7,x,l).
+t(s7,y,s7,y,l).
+t(s7,$,s9,$,r).
+
+t(s8,a,s8,a,l).		/* move back to the start, carrying a y */
+t(s8,b,s8,b,l).
+t(s8,x,s8,x,l).
+t(s8,y,s8,y,l).
+t(s8,$,s10,$,r).
+
+t(s9,a,s14,x,r).	/* move right, write x in first available spot */
+t(s9,b,s14,x,r).
+t(s9,x,s9,x,r).
+t(s9,y,s9,y,r).
+t(s9,$,s11,$,l).
+
+t(s10,a,s14,y,r).	/* move right, write y in first available spot */
+t(s10,b,s14,y,r).
+t(s10,x,s10,x,r).
+t(s10,y,s10,y,r).
+t(s10,$,s11,$,l).
+
+t(s14,a,s3,a,r).	/* advance to the next un-read a or b */
+t(s14,b,s4,b,r).
+t(s14,x,s12,x,r).
+t(s14,y,s12,y,r).
+
+t(s11,a,s11,a,l).	/* move back left */
+t(s11,b,s11,b,l).
+t(s11,x,s11,x,l).
+t(s11,y,s11,y,l).
+t(s11,$,s12,$,r).
+
+t(s12,a,s12,a,l).	/* move back left */
+t(s12,b,s12,b,l).
+t(s12,x,s12,x,l).
+t(s12,y,s12,y,l).
+t(s12,$,s13,$,r).
+
+t(s13,a,s13,a,r).	/* move back right, replacing x's with a's and y's with b's */
+t(s13,b,s13,b,r).
+t(s13,x,s13,a,r).
+t(s13,y,s13,b,r).
+t(s13,$,s15,$,l).
+
+accepting(s15).
+
+Example 1:
+?- top([$,b,a,a,a,$]).
+[]s1[$,b,a,a,a,$] $ right 
+[$]s2[b,a,a,a,$] b right 
+[$,b]s4[a,a,a,$] a right 
+[$,b,a]s4[a,a,$] a right 
+[$,b,a,a]s4[a,$] a right 
+[$,b,a,a,a]s4[$] $ left 
+[$,b,a,a]s6[a,$] y left 
+[$,b,a]s7[a,y,$] a left 
+[$,b]s7[a,a,y,$] a left 
+[$]s7[b,a,a,y,$] b left 
+[]s7[$,b,a,a,y,$] $ right 
+[$]s9[b,a,a,y,$] x right 
+[$,x]s14[a,a,y,$] a right 
+[$,x,a]s3[a,y,$] a right 
+[$,x,a,a]s3[y,$] y right 
+[$,x,a,a,y]s3[$] $ left 
+[$,x,a,a]s5[y,$] y left 
+[$,x,a]s5[a,y,$] x left 
+[$,x]s7[a,x,y,$] a left 
+[$]s7[x,a,x,y,$] x left 
+[]s7[$,x,a,x,y,$] $ right 
+[$]s9[x,a,x,y,$] x right 
+[$,x]s9[a,x,y,$] x right 
+[$,x,x]s14[x,y,$] x right 
+[$,x,x,x]s12[y,$] y left 
+[$,x,x]s12[x,y,$] x left 
+[$,x]s12[x,x,y,$] x left 
+[$]s12[x,x,x,y,$] x left 
+[]s12[$,x,x,x,y,$] $ right 
+[$]s13[x,x,x,y,$] a right 
+[$,a]s13[x,x,y,$] a right 
+[$,a,a]s13[x,y,$] a right 
+[$,a,a,a]s13[y,$] b right 
+[$,a,a,a,b]s13[$] $ left 
+[$,a,a,a]s15[b,$] accept 
+
+Example 2:
+?- top([$,b,a,a,a,$]).
+[]s1[$,b,a,a,a,$] $ right 
+[$]s2[b,a,a,a,$] b right 
+[$,b]s4[a,a,a,$] a right 
+[$,b,a]s4[a,a,$] a right 
+[$,b,a,a]s4[a,$] a right 
+[$,b,a,a,a]s4[$] $ left 
+[$,b,a,a]s6[a,$] y left 
+[$,b,a]s7[a,y,$] a left 
+[$,b]s7[a,a,y,$] a left 
+[$]s7[b,a,a,y,$] b left 
+[]s7[$,b,a,a,y,$] $ right 
+[$]s9[b,a,a,y,$] x right 
+[$,x]s14[a,a,y,$] a right 
+[$,x,a]s3[a,y,$] a right 
+[$,x,a,a]s3[y,$] y right 
+[$,x,a,a,y]s3[$] $ left 
+[$,x,a,a]s5[y,$] y left 
+[$,x,a]s5[a,y,$] x left 
+[$,x]s7[a,x,y,$] a left 
+[$]s7[x,a,x,y,$] x left 
+[]s7[$,x,a,x,y,$] $ right 
+[$]s9[x,a,x,y,$] x right 
+[$,x]s9[a,x,y,$] x right 
+[$,x,x]s14[x,y,$] x right 
+[$,x,x,x]s12[y,$] y left 
+[$,x,x]s12[x,y,$] x left 
+[$,x]s12[x,x,y,$] x left 
+[$]s12[x,x,x,y,$] x left 
+[]s12[$,x,x,x,y,$] $ right 
+[$]s13[x,x,x,y,$] a right 
+[$,a]s13[x,x,y,$] a right 
+[$,a,a]s13[x,y,$] a right 
+[$,a,a,a]s13[y,$] b right 
+[$,a,a,a,b]s13[$] $ left 
+[$,a,a,a]s15[b,$] accept 
+
+5 --------------------------------------------------------------------------------------------------
+/* $ donotes the start of the tape */
+/* takes a binary number is reverse order */
+
+start(s1). /* starting state  */
+t(s1,$,s2,$,r).
+
+t(s2,'1',s3,'0',l). /* if it starts with 1, just flip */
+t(s2,'0',s4,'1',r). /* if its starts with 0, flip and move right */
+
+t(s4,'1',s5,'0',l). /* move right until a 1 is found*/
+t(s4,'0',s4,'0',r).
+t(s4,' ',s3,' ',1).
+
+t(s5,'0',s5,'1',l). /*move back left replacing 0's with 1's */
+t(s5,'1',s5,'1',l).
+t(s5,$,s6,$,r).
+
+t(s6,'1',s6,'1',r). /* move to the end */
+t(s6,'0',s6,'0',r).
+t(s6,' ',s7,' ',l).
+
+t(s7,'0',s3,' ',l). /* back up one and remove any extra 0's */
+t(s7,'1',s3,'1',l).
+
+accepting(s3).
+
+Example 1
+?- top(['$','1','1','0']).
+[]s1[$,1,1,0] $ right 
+[$]s2[1,1,0] 0 left 
+[]s3[$,0,1,0] accept
+
+Example 2
+?- top(['$','1','1','0']).
+[]s1[$,1,1,0] $ right 
+[$]s2[1,1,0] 0 left 
+[]s3[$,0,1,0] accept 
+
+

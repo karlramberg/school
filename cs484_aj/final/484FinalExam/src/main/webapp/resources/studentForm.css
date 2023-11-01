@@ -1,0 +1,13 @@
+body {
+	margin: 2% 20%;
+	font-family: sans-serif;
+}
+
+h2 {
+	color: navy;
+	font-style: italic;
+}
+
+th, td {
+	padding: 5px;
+}

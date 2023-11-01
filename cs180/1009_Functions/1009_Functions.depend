@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1539114576 source:/home/karl/Workspace/cs180/1009_Functions/functions.cpp
+	<iostream>
+	<fstream>
+	<iomanip>
+

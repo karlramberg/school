@@ -1,0 +1,92 @@
+// Karl Ramberg
+// Creates a grade_report.txt file based on a score file input
+
+#include <iostream>
+#include<fstream>
+#include<iomanip>
+
+using namespace std;
+
+int main()
+{
+    const unsigned int MAX_SCORE = 100;
+    const unsigned int MIN_SCORE = 0;
+    const unsigned int A_CUTOFF = 90;
+    const unsigned int B_CUTOFF = 80;
+    const unsigned int C_CUTOFF = 70;
+    const unsigned int D_CUTOFF = 60;
+
+    ifstream input_file;
+    input_file.open("scores.txt");
+    ofstream output_file;
+    output_file.open("grade_report.txt");
+
+    unsigned int num_of_scores;
+    input_file >> num_of_scores;
+
+    string dummy;
+    getline(input_file, dummy); // consumes newline
+
+    string name;
+    while (getline(input_file, name))
+    {
+      unsigned int largest_score = MIN_SCORE;
+      unsigned int smallest_score = MAX_SCORE;
+      unsigned int running_total = 0;
+
+      for (unsigned int count = 0; count < num_of_scores; count++)
+      {
+        unsigned int score;
+        input_file >> score;
+
+        if (score > largest_score)
+        {
+          largest_score = score;
+        }
+
+        if (score < smallest_score)
+        {
+          smallest_score = score;
+        }
+
+        running_total += score;
+      }
+
+      double average = static_cast<double>(running_total) / num_of_scores;
+
+      char letter_grade;
+      if (average >= A_CUTOFF)
+      {
+        letter_grade = 'A';
+      }
+      else if (average >= B_CUTOFF)
+      {
+        letter_grade = 'B';
+      }
+      else if (average >= C_CUTOFF)
+      {
+        letter_grade = 'C';
+      }
+      else if (average >= D_CUTOFF)
+      {
+        letter_grade = 'D';
+      }
+      else // must be F
+      {
+        letter_grade = 'F';
+      }
+
+      output_file << setw(25) << left << name
+                  << setw(4) << right << smallest_score
+                  << setw(4) << right << largest_score
+                  << setw(7) << right << fixed << setprecision(2) << average
+                  << setw(3) << right << letter_grade << endl;
+
+      getline(input_file, dummy); //consumes newline
+    }
+
+    input_file.close();
+    output_file.close();
+
+    return 0;
+}

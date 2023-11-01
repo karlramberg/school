@@ -1,0 +1,4 @@
+this is
+a file with
+fewer than
+ten lines
